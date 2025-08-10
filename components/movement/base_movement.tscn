@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://3hmkep52vfws"]
+
+[ext_resource type="Script" uid="uid://clqql4xn7pmym" path="res://components/movement/base_movement.gd" id="1_1525i"]
+
+[node name="BaseMovement" type="Node"]
+script = ExtResource("1_1525i")
