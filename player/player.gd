@@ -27,7 +27,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	if is_multiplayer_authority():
-		Game.lobby.hud.assign_player(self)
+		Game.hud.assign_player(self)
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		#first_person_camera.priority = 1
 		third_person_camera.priority = 2
@@ -47,6 +47,8 @@ func update_score(change : int) -> void:
 func set_nametag(_username : String):
 	if !is_multiplayer_authority():
 		nametag.mesh.text = _username
+	else:
+		nametag.mesh.text = ""
 
 func _unhandled_input(event: InputEvent) -> void:
 	if third_person_camera.is_active() and event is InputEventMouseMotion:

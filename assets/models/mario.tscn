@@ -1,0 +1,161 @@
+[gd_scene load_steps=20 format=3 uid="uid://b7773je6rdvjw"]
+
+[ext_resource type="PackedScene" uid="uid://bjtx1335munhc" path="res://assets/Mario.blend" id="1_b305i"]
+[ext_resource type="Script" uid="uid://cmpb514wun5e1" path="res://assets/models/mario.gd" id="2_dcg1v"]
+[ext_resource type="Texture2D" uid="uid://beguuu7xmdqxh" path="res://assets/Mario_eye_tx.png" id="2_ie3h4"]
+[ext_resource type="Texture2D" uid="uid://c4gstii5mhse2" path="res://assets/Mario_all_tx.png" id="3_dcg1v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r88yd"]
+albedo_texture = ExtResource("2_ie3h4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qa7sb"]
+albedo_texture = ExtResource("3_dcg1v")
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b305i"]
+animation = &"Left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ie3h4"]
+animation = &"Right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dcg1v"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r88yd"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qa7sb"]
+animation = &"Fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w4yv1"]
+animation = &"Land"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vjo7b"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_w4yv1"]
+filter_enabled = true
+filters = ["Armature/Skeleton3D:mixamorig_LeftArm", "Armature/Skeleton3D:mixamorig_LeftForeArm", "Armature/Skeleton3D:mixamorig_LeftHand", "Armature/Skeleton3D:mixamorig_LeftHandIndex1", "Armature/Skeleton3D:mixamorig_LeftHandIndex2", "Armature/Skeleton3D:mixamorig_LeftHandIndex3", "Armature/Skeleton3D:mixamorig_LeftShoulder", "Armature/Skeleton3D:mixamorig_RightArm", "Armature/Skeleton3D:mixamorig_RightForeArm", "Armature/Skeleton3D:mixamorig_RightHand", "Armature/Skeleton3D:mixamorig_RightHandIndex1", "Armature/Skeleton3D:mixamorig_RightHandIndex2", "Armature/Skeleton3D:mixamorig_RightHandIndex3", "Armature/Skeleton3D:mixamorig_RightShoulder", "Armature/Skeleton3D:mixamorig_Spine", "Armature/Skeleton3D:mixamorig_Spine1", "Armature/Skeleton3D:mixamorig_Spine2"]
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_b305i"]
+input_0/name = "Idle"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "Left"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "Right"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+input_3/name = "Forward"
+input_3/auto_advance = false
+input_3/break_loop_at_end = false
+input_3/reset = true
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_l380m"]
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_swrkl"]
+input_0/name = "Ground"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "Air"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_l380m"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ie3h4"]
+graph_offset = Vector2(-544.245, 56.1304)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_vjo7b")
+nodes/Animation/position = Vector2(-560, -20)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_b305i")
+"nodes/Animation 2/position" = Vector2(-560, 160)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_ie3h4")
+"nodes/Animation 3/position" = Vector2(-560, 340)
+"nodes/Animation 4/node" = SubResource("AnimationNodeAnimation_dcg1v")
+"nodes/Animation 4/position" = Vector2(-560, 520)
+"nodes/Animation 5/node" = SubResource("AnimationNodeAnimation_r88yd")
+"nodes/Animation 5/position" = Vector2(-360, 540)
+"nodes/Animation 6/node" = SubResource("AnimationNodeAnimation_qa7sb")
+"nodes/Animation 6/position" = Vector2(-20, 300)
+"nodes/Animation 7/node" = SubResource("AnimationNodeAnimation_w4yv1")
+"nodes/Animation 7/position" = Vector2(-20, 480)
+nodes/Jump/node = SubResource("AnimationNodeOneShot_w4yv1")
+nodes/Jump/position = Vector2(-40, 0)
+nodes/Movement/node = SubResource("AnimationNodeTransition_b305i")
+nodes/Movement/position = Vector2(-320, 40)
+"nodes/OneShot 2/node" = SubResource("AnimationNodeOneShot_l380m")
+"nodes/OneShot 2/position" = Vector2(220, 200)
+nodes/State/node = SubResource("AnimationNodeTransition_swrkl")
+nodes/State/position = Vector2(380, 60)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_l380m")
+nodes/TimeScale/position = Vector2(-200, 360)
+nodes/output/position = Vector2(640, 160)
+node_connections = [&"Jump", 0, &"Movement", &"Jump", 1, &"TimeScale", &"Movement", 0, &"Animation", &"Movement", 1, &"Animation 2", &"Movement", 2, &"Animation 3", &"Movement", 3, &"Animation 4", &"OneShot 2", 0, &"Animation 6", &"OneShot 2", 1, &"Animation 7", &"State", 0, &"Jump", &"State", 1, &"OneShot 2", &"TimeScale", 0, &"Animation 5", &"output", 0, &"State"]
+
+[node name="Mario" instance=ExtResource("1_b305i")]
+script = ExtResource("2_dcg1v")
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/position = Vector3(-0.198578, 0.158302, -5.43646)
+bones/0/rotation = Quaternion(-0.686947, -0.265419, 0.249877, 0.628664)
+bones/1/rotation = Quaternion(-0.00834357, 0.039361, -0.00943864, 0.999146)
+bones/2/rotation = Quaternion(0.0944607, 0.0816232, -0.00772974, 0.992147)
+bones/3/rotation = Quaternion(0.0944608, 0.0816232, -0.00772972, 0.992147)
+bones/4/rotation = Quaternion(0.0413302, -0.0108372, 0.000924007, 0.999086)
+bones/5/rotation = Quaternion(-0.0401432, 0.176322, -0.00478003, 0.983502)
+bones/7/rotation = Quaternion(-0.553872, -0.449001, 0.568468, -0.410449)
+bones/8/rotation = Quaternion(0.460401, -0.0974011, 0.00820057, 0.882313)
+bones/9/rotation = Quaternion(0.038068, 0.0589779, 0.415343, 0.906953)
+bones/10/rotation = Quaternion(-0.114575, 0.136311, 0.0251996, 0.983696)
+bones/11/rotation = Quaternion(0.0508274, -0.0159896, 0.0557027, 0.997025)
+bones/12/rotation = Quaternion(0.0781515, 0.0221937, -0.163039, 0.983269)
+bones/13/rotation = Quaternion(0.0438415, -0.00736714, 0.130477, 0.990454)
+bones/15/rotation = Quaternion(0.603384, -0.407514, 0.53624, 0.426973)
+bones/16/rotation = Quaternion(0.414503, 0.0887903, 0.221596, 0.878179)
+bones/17/rotation = Quaternion(0.0993606, 0.00775276, -0.356225, 0.92907)
+bones/18/rotation = Quaternion(0.115055, -0.0562143, -0.080398, 0.988503)
+bones/19/rotation = Quaternion(0.036072, 0.00802858, 0.0139382, 0.99922)
+bones/20/rotation = Quaternion(0.0792378, -0.0282168, 0.207413, 0.974631)
+bones/21/rotation = Quaternion(-0.0379378, 0.0322054, -0.1278, 0.990551)
+bones/23/rotation = Quaternion(0.07282, 0.228096, 0.956372, -0.167398)
+bones/24/rotation = Quaternion(-0.322561, 0.126524, -0.115863, 0.930872)
+bones/25/rotation = Quaternion(0.426252, -0.00512989, -0.0391575, 0.903742)
+bones/26/rotation = Quaternion(0.422585, -0.0340307, 0.000677882, 0.905684)
+bones/28/rotation = Quaternion(-0.127571, -0.163579, 0.963766, 0.167698)
+bones/29/rotation = Quaternion(-0.213041, 0.0609367, 0.0256291, 0.974804)
+bones/30/rotation = Quaternion(0.598821, 0.0556899, 0.154309, 0.783901)
+bones/31/rotation = Quaternion(0.424708, 0.0553099, -0.0246751, 0.903302)
+
+[node name="body_all_tx" parent="Armature/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r88yd")
+
+[node name="body_eye_tx" parent="Armature/Skeleton3D" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_qa7sb")
+
+[node name="AnimationPlayer" parent="." index="1"]
+speed_scale = 1.5
+
+[node name="RayCast3D" type="RayCast3D" parent="." index="2"]
+target_position = Vector3(0, -0.03, 0)
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="3"]
+tree_root = SubResource("AnimationNodeBlendTree_ie3h4")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Jump/active = false
+parameters/Jump/internal_active = -1
+parameters/Jump/request = 0
+parameters/Movement/current_state = "Idle"
+parameters/Movement/transition_request = ""
+parameters/Movement/current_index = 0
+"parameters/OneShot 2/active" = false
+"parameters/OneShot 2/internal_active" = false
+"parameters/OneShot 2/request" = 0
+parameters/State/current_state = "Ground"
+parameters/State/transition_request = ""
+parameters/State/current_index = 0
+parameters/TimeScale/scale = 1.4

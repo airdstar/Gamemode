@@ -17,7 +17,7 @@ func death() -> void:
 	spawn()
 
 func spawn() -> void:
-	$MeshInstance3D.show()
+	#$MeshInstance3D.show()
 	movement_component.freeze = false
 	health_component.heal(health_component.max)
 	velocity = Vector3.ZERO

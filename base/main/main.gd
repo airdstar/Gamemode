@@ -1,7 +1,7 @@
 extends Node
 
 func _ready() -> void:
-	get_node(^"/root/Main")
+	Game.hud = $HUD
 
 func open_lobby() -> void:
 	Game.lobby = preload("res://base/lobby.tscn").instantiate()

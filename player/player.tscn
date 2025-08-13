@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bt2284m4klqkm"]
+[gd_scene load_steps=16 format=3 uid="uid://bt2284m4klqkm"]
 
 [ext_resource type="Script" uid="uid://binf2nrjmrcwf" path="res://player/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_i3pqv"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_hqtel"]
 [ext_resource type="PackedScene" uid="uid://3hmkep52vfws" path="res://components/movement/base_movement.tscn" id="3_sweqy"]
 [ext_resource type="PackedScene" uid="uid://ddejr873j4tpg" path="res://components/health_component.tscn" id="4_g6k8r"]
+[ext_resource type="PackedScene" uid="uid://b7773je6rdvjw" path="res://assets/models/mario.tscn" id="5_boad6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
 radius = 0.4
@@ -27,6 +28,8 @@ billboard_mode = 1
 [sub_resource type="TextMesh" id="TextMesh_boad6"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_g6k8r")
+text = "Hi"
+font_size = 30
 depth = 0.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
@@ -72,6 +75,7 @@ movement_component = NodePath("BaseMovement")
 health_component = NodePath("HealthComponent")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerBody"]
+visible = false
 mesh = SubResource("CapsuleMesh_sh265")
 skeleton = NodePath("../..")
 
@@ -98,6 +102,17 @@ shape = SubResource("CapsuleShape3D_sh265")
 [node name="BaseMovement" parent="PlayerBody" instance=ExtResource("3_sweqy")]
 
 [node name="HealthComponent" parent="PlayerBody" instance=ExtResource("4_g6k8r")]
+
+[node name="AudioListener3D" type="AudioListener3D" parent="PlayerBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1.5)
+current = true
+
+[node name="Walk" type="AudioStreamPlayer3D" parent="PlayerBody"]
+max_distance = 10.0
+doppler_tracking = 2
+
+[node name="Mario" parent="PlayerBody" instance=ExtResource("5_boad6")]
+transform = Transform3D(-8, 0, -6.99382e-07, 0, 8, 0, 6.99382e-07, 0, -8, 0, -0.75, 0)
 
 [node name="PhantomCamera3D" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 3)

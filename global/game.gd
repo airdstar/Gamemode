@@ -1,6 +1,9 @@
 extends Node
 
+var hud : CanvasLayer
 var lobby : Node
+var current_dj : DJ
+
 var players : Array[Player]
 var player : Player
 var username : String

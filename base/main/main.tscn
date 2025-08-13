@@ -1,12 +1,64 @@
-[gd_scene load_steps=3 format=3 uid="uid://bowjl14rsqt81"]
+[gd_scene load_steps=7 format=3 uid="uid://bowjl14rsqt81"]
 
 [ext_resource type="Script" uid="uid://dr2ptmvadju3f" path="res://base/main/main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://b3hbrumplmt7k" path="res://base/ui/HUD.gd" id="3_gpuun"]
 [ext_resource type="PackedScene" uid="uid://cwq2uif3qqybq" path="res://base/ui/main_menu.tscn" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://c2kt6tq7pj0gv" path="res://assets/healthbar_under.png" id="4_mu85o"]
+[ext_resource type="Texture2D" uid="uid://dvluv1q4oxjx2" path="res://assets/healthbar_over.png" id="5_23yyl"]
+[ext_resource type="Texture2D" uid="uid://cu5nsvhdhi7ba" path="res://assets/healthbar_progress.png" id="6_o1m5y"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ig7tw")
 
 [node name="MainMenu" parent="." instance=ExtResource("3_h2yge")]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+layer = 4
+visible = false
+script = ExtResource("3_gpuun")
+
+[node name="WaitingPlayers" type="RichTextLabel" parent="HUD"]
+offset_left = 424.5
+offset_top = 45.0
+offset_right = 727.5
+offset_bottom = 68.0
+theme_override_constants/outline_size = 4
+bbcode_enabled = true
+text = "Waiting for players...
+"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Stats" type="VBoxContainer" parent="HUD"]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 392.0
+offset_bottom = 66.0
+
+[node name="HealthBar" type="TextureProgressBar" parent="HUD/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_under = ExtResource("4_mu85o")
+texture_over = ExtResource("5_23yyl")
+texture_progress = ExtResource("6_o1m5y")
+
+[node name="Name" type="RichTextLabel" parent="HUD/Stats"]
+layout_mode = 2
+text = "username"
+fit_content = true
+
+[node name="Music" type="RichTextLabel" parent="HUD"]
+offset_left = 824.0
+offset_top = 612.0
+offset_right = 1150.0
+offset_bottom = 646.0
+theme_override_constants/outline_size = 4
+bbcode_enabled = true
+text = "[rainbow][wave]Playing:
+"
+fit_content = true
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://bt2284m4klqkm")
