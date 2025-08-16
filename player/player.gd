@@ -13,7 +13,7 @@ class_name Player
 
 var active_camera : PhantomCamera3D
 
-
+var host : Node
 
 signal change_score
 signal player_loaded
@@ -24,6 +24,8 @@ func _enter_tree() -> void:
 		Game.player = self
 		username = Game.username
 		Game.rpc("update_username", name.to_int(), username)
+		if name != "1":
+			Network.rpc_id(1, "get_host_info")
 
 func _ready() -> void:
 	if is_multiplayer_authority():
@@ -49,6 +51,11 @@ func set_nametag(_username : String):
 		nametag.mesh.text = _username
 	else:
 		nametag.mesh.text = ""
+
+func set_host() -> void:
+	var node = preload("res://host.tscn").instantiate()
+	add_child(node)
+	host = node
 
 func _unhandled_input(event: InputEvent) -> void:
 	if third_person_camera.is_active() and event is InputEventMouseMotion:

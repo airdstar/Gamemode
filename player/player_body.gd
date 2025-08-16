@@ -6,18 +6,22 @@ extends CharacterBody3D
 
 @export var tools : Array[Tool]
 
+var force_respawned : bool = false
+
 func _ready() -> void:
-	spawn()
+	await get_tree().create_timer(0.3).timeout
+	call_deferred("spawn")
 
 func death() -> void:
 	health_component.health_changed.emit(0)
-	$MeshInstance3D.hide()
+	$Mario.hide()
 	movement_component.freeze = true
-	await get_tree().create_timer(3).timeout
-	spawn()
+	await get_tree().create_timer(0.5).timeout
+	if !force_respawned:
+		spawn()
 
 func spawn() -> void:
-	#$MeshInstance3D.show()
+	$Mario.show()
 	movement_component.freeze = false
 	health_component.heal(health_component.max)
 	velocity = Vector3.ZERO

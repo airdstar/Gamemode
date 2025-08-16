@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Minigame_Resource" load_steps=2 format=3 uid="uid://nv7l286fs0aw"]
+
+[ext_resource type="Script" uid="uid://b452bk6apowlx" path="res://minigame/minigame_resource.gd" id="1_wm01j"]
+
+[resource]
+script = ExtResource("1_wm01j")
+scene_path = "res://minigame/scenes/dropper.tscn"
+min_players = 1
+metadata/_custom_type_script = "uid://b452bk6apowlx"

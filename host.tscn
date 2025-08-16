@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcwpwdofgrifr"]
+
+[ext_resource type="Script" uid="uid://cphrms3e5dj45" path="res://host.gd" id="1_0wu4t"]
+
+[node name="Host" type="Node"]
+script = ExtResource("1_0wu4t")
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+
+[node name="PlayerChecker" type="Timer" parent="."]
+one_shot = true
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="Cooldown" to="." method="minigame_cooldown_done"]
+[connection signal="timeout" from="PlayerChecker" to="." method="check_playercount"]
+[connection signal="timeout" from="StartTimer" to="." method="start_minigame"]

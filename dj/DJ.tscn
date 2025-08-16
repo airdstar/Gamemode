@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://3ehbohrai757"]
+
+[ext_resource type="Script" uid="uid://dno2xfcw4kdkg" path="res://dj/dj.gd" id="1_ufaqj"]
+[ext_resource type="AudioStream" uid="uid://bou5vai3r07fg" path="res://dj/lobby_music/Disco Hall.ogg" id="2_1wtfm"]
+
+[node name="DJ" type="Node" node_paths=PackedStringArray("music_player")]
+script = ExtResource("1_ufaqj")
+music_player = NodePath("BGM")
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_1wtfm")
+volume_db = -30.0
+
+[connection signal="finished" from="BGM" to="." method="get_new_song"]

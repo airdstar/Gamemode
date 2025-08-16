@@ -24,6 +24,8 @@ var speed : float
 
 func handle_air_physics(delta : float) -> void:
 	body.velocity.y -= gravity * delta
+	if body.velocity.y < -30:
+		body.velocity.y = -30
 	
 	var cur_speed_in_wish_dir = body.velocity.dot(wish_dir)
 	var capped_speed = min((air_move_speed * wish_dir).length(), air_cap)

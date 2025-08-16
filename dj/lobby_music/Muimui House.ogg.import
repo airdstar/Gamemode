@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dj8lahsrcx3kc"
+path="res://.godot/imported/Muimui House.ogg-01db6f8418027ae1dac0bfc4dd9251ee.oggvorbisstr"
+
+[deps]
+
+source_file="res://dj/lobby_music/Muimui House.ogg"
+dest_files=["res://.godot/imported/Muimui House.ogg-01db6f8418027ae1dac0bfc4dd9251ee.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

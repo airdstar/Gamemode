@@ -41,10 +41,10 @@ text = "Join"
 
 [node name="Input" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 279.0
-offset_bottom = 106.0
+offset_left = 3.0
+offset_top = 544.0
+offset_right = 277.0
+offset_bottom = 645.0
 
 [node name="Username" type="LineEdit" parent="Input"]
 layout_mode = 2

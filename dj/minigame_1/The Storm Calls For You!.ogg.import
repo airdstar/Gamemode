@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dxwnw6xbvsruk"
+path="res://.godot/imported/The Storm Calls For You!.ogg-e4864aa0145bb848a40bbaaef65a036e.oggvorbisstr"
+
+[deps]
+
+source_file="res://dj/minigame_1/The Storm Calls For You!.ogg"
+dest_files=["res://.godot/imported/The Storm Calls For You!.ogg-e4864aa0145bb848a40bbaaef65a036e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

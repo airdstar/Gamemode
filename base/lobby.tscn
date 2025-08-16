@@ -1,28 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://cku72jheqcv6k"]
+[gd_scene load_steps=18 format=3 uid="uid://cku72jheqcv6k"]
 
 [ext_resource type="Script" uid="uid://duxkou383u8uc" path="res://base/lobby.gd" id="1_xrgmn"]
 [ext_resource type="Texture2D" uid="uid://bq03jiq605f1i" path="res://assets/test.png" id="2_2wvic"]
+[ext_resource type="PackedScene" uid="uid://3ehbohrai757" path="res://dj/DJ.tscn" id="2_ex60v"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_2wvic"]
 [ext_resource type="Script" uid="uid://cwwyfoog48cuf" path="res://base/ui/playerlist.gd" id="4_ex60v"]
-[ext_resource type="Texture2D" uid="uid://wxnr4nv08ll6" path="res://assets/bluigi.png" id="5_ex60v"]
-[ext_resource type="AudioStream" uid="uid://bou5vai3r07fg" path="res://assets/audio/lobby_music/Disco Hall - Donkey Kong Bananza.ogg" id="10_aonxo"]
-[ext_resource type="Script" uid="uid://dno2xfcw4kdkg" path="res://base/dj.gd" id="10_iouct"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ll2xe"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-
-[sub_resource type="Sky" id="Sky_xrgmn"]
-sky_material = SubResource("ProceduralSkyMaterial_ll2xe")
-
-[sub_resource type="Environment" id="Environment_2wvic"]
-background_mode = 2
-sky = SubResource("Sky_xrgmn")
-tonemap_mode = 2
-glow_enabled = true
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_5nlud"]
-size = Vector3(150, 1, 150)
+[sub_resource type="BoxShape3D" id="BoxShape3D_mu47f"]
+size = Vector3(2000, 30, 2000)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tftiq"]
 albedo_texture = ExtResource("2_2wvic")
@@ -36,6 +21,14 @@ size = Vector3(40, 2, 40)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nlb3u"]
 size = Vector3(40, 2, 40)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nlb3u"]
+albedo_color = Color(0.370364, 0.370364, 0.370364, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nlb3u"]
+material = SubResource("StandardMaterial3D_nlb3u")
+flip_faces = true
+size = Vector3(300, 300, 300)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5nlud"]
 albedo_color = Color(1, 0.380392, 0, 1)
@@ -66,12 +59,14 @@ default_font_size = 23
 [node name="Lobby" type="Node3D"]
 script = ExtResource("1_xrgmn")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_2wvic")
+[node name="DJ" parent="." instance=ExtResource("2_ex60v")]
+path = "res://dj/lobby_music/"
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-shadow_enabled = true
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 60, 0)
+light_color = Color(0.589096, 0.589096, 0.589096, 1)
+light_energy = 100.0
+spot_range = 100.0
 
 [node name="MainCamera" type="Camera3D" parent="."]
 
@@ -86,8 +81,8 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Oob"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15, 0)
-shape = SubResource("BoxShape3D_5nlud")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 500, -30, 500)
+shape = SubResource("BoxShape3D_mu47f")
 
 [node name="Baseplate" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -100,60 +95,55 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 shape = SubResource("BoxShape3D_nlb3u")
 
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_nlb3u")
+
+[node name="Extras" type="CSGCombiner3D" parent="."]
 material_override = SubResource("StandardMaterial3D_5nlud")
 use_collision = true
 
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+[node name="CSGBox3D" type="CSGBox3D" parent="Extras"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0.75, 3.491)
 size = Vector3(5, 1.5, 7)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Extras"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.25, 3, -2)
 size = Vector3(1.5, 1, 1)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="Extras"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.25, 3.875, -8.875)
 size = Vector3(2.5, 0.25, 7.75)
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D"]
+[node name="CSGBox3D7" type="CSGBox3D" parent="Extras"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.25, 5.25, -4.5)
 size = Vector3(4, 3, 1)
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D"]
+[node name="CSGBox3D6" type="CSGBox3D" parent="Extras"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 5.25, -12.25)
 
-[node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D"]
+[node name="CSGBox3D8" type="CSGBox3D" parent="Extras"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.75, 5.25, -12.25)
 size = Vector3(4.5, 1, 4.5)
 
-[node name="CSGMesh3D7" type="CSGMesh3D" parent="CSGCombiner3D"]
+[node name="CSGMesh3D7" type="CSGMesh3D" parent="Extras"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -18, 4.25, 17.5)
 mesh = SubResource("PrismMesh_iouct")
 
-[node name="CSGMesh3D8" type="CSGMesh3D" parent="CSGCombiner3D"]
+[node name="CSGMesh3D8" type="CSGMesh3D" parent="Extras"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -14, 3.25, 17.5)
 mesh = SubResource("PrismMesh_odn04")
 
-[node name="CSGMesh3D9" type="CSGMesh3D" parent="CSGCombiner3D"]
+[node name="CSGMesh3D9" type="CSGMesh3D" parent="Extras"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10, 2.25, 17.5)
 mesh = SubResource("PrismMesh_a046m")
 
-[node name="CSGMesh3D10" type="CSGMesh3D" parent="CSGCombiner3D"]
+[node name="CSGMesh3D10" type="CSGMesh3D" parent="Extras"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6, 1.25, 17.5)
 mesh = SubResource("PrismMesh_5nlud")
 
 [node name="Playerlist" type="CanvasLayer" parent="."]
 layer = 5
-visible = false
 script = ExtResource("4_ex60v")
-
-[node name="TextureRect" type="TextureRect" parent="Playerlist"]
-offset_left = 455.0
-offset_top = 68.0
-offset_right = 703.0
-offset_bottom = 566.0
-texture = ExtResource("5_ex60v")
 
 [node name="ListPanel" type="Panel" parent="Playerlist"]
 offset_left = 226.0
@@ -166,33 +156,8 @@ layout_mode = 0
 offset_right = 700.0
 offset_bottom = 42.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Playerlist/ListPanel/List"]
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Playerlist/ListPanel/List/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Player"
-fit_content = true
-vertical_alignment = 1
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="Playerlist/ListPanel/List/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Points"
-fit_content = true
-vertical_alignment = 1
-
-[node name="DJ" type="Node" parent="." node_paths=PackedStringArray("music_player")]
-script = ExtResource("10_iouct")
-music_player = NodePath("BGM")
-path = "res://assets/audio/lobby_music/"
-
-[node name="BGM" type="AudioStreamPlayer" parent="DJ"]
-stream = ExtResource("10_aonxo")
-volume_db = -30.0
+[node name="EndTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="area_entered" from="Oob" to="." method="oob"]
-[connection signal="finished" from="DJ/BGM" to="." method="song_finished"]
+[connection signal="timeout" from="EndTimer" to="." method="end_minigame"]

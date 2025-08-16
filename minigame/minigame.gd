@@ -1,15 +1,29 @@
-extends Resource
+extends Node3D
 class_name Minigame
 
-@export_category("Player Settings")
+@export var rules : Rules
+@export var spawn_points : Array[Node]
+@export var dj : DJ
 
-@export_enum("Third Person", "First Person", "Special") var camera : int
-#@export var movement_type : movement
+var participating : bool = false
+var win : bool = false
 
-@export_category("Minigame Settings")
+func _ready() -> void:
+	if rules.use_lobby:
+		pass
+	else:
+		position += Vector3(1000,0,1000)
+	
+	if rules.teams > 1:
+		pass
 
-@export_enum("First", "Pass", "Alive") var winner : int
-@export var health : bool
-@export var use_lobby : bool = false
-@export var fixed_map : bool = true
-@export var maps : Array[int]
+func start() -> void:
+	pass
+
+## Use for cleanup
+func end() -> void:
+	pass
+
+func get_random_spawn() -> Vector3:
+	var to_return = spawn_points.pick_random().position
+	return to_return
